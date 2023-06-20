@@ -1,0 +1,40 @@
+#define pir D1 // pin pada sensor pir
+#define buzzer D2 // pin pada buzzer
+#define ldr A0 // pin pada sensor ldr
+#define led D3 // pin pada led
+
+
+void setup() {
+pinMode(pir,INPUT); // input pada sensor pir
+pinMode(buzzer,OUTPUT); // output pada buzzer
+pinMode(ldr,INPUT); // input pada sensor ldr
+pinMode(led,OUTPUT); // output pada led
+
+}
+
+void loop() {
+  Serial.begin(9600); // monitor untuk membaca hasil
+int gerakan = digitalRead(pir); // memasukan perintah gerakan sebagai digital menulis input sensor
+int cahaya = analogRead(ldr); // memasukan perintah cahaya sebagai analog menulis input sensor
+
+if(gerakan == HIGH) // perintah jika gerakan membaca sinyal high 
+{
+  digitalWrite(buzzer,HIGH); // maka pin digital akan memerintahkan buzzer untuk menyala
+Serial.print("ada paket"); // monitor akan menampilkan bahwa ada paket
+}
+else // perintah kebalikannya
+{
+  digitalWrite(buzzer,LOW); // maka pin digital akan memerintahkan buzzer untuk tidak menyala 
+Serial.print("gak ada paket"); // monitor akan menampilkan bahwa tidak ada paket
+}
+if(cahaya > 600) // perintah jika cahaya membaca sinyal lebih dari 600 atau pada kondisi gelap
+{
+  digitalWrite(led,LOW); // maka pin digital akan memerintahkan led untuk menyala
+Serial.print("lampu menyala"); // monitor akan menampilkan bahwa lampu menyala
+}
+else // perintah kebalikannya
+{
+  digitalWrite(led,HIGH); // maka pin digital akan memerintahkan led untuk tidak menyala
+Serial.print("lampu mati"); // monitor akan menampilkan bahwa lampu mati
+}
+}
